@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "version": "1.0.1",
+  "name": "Peté Crawlér",
+  "description": "A chrome extension to rate the architect of websites",
+  "action":{
+    "default_popup":"index.html",
+    "default_icon":"icon.png"
+  },
+  "author": "Saheel Raj",
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*/*","http://*/*", "https://*/*"
+  ]
+}
