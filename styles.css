@@ -16,7 +16,7 @@ body {
   background-image: linear-gradient(147deg, #FFE53B 0%, #fd3838 74%);
   margin: 2px;
   width: fit-content;
-  min-width: 250px;
+  min-width: 300px;
   min-height: fit-content;
   border-radius: 25px;
   border: 1px solid transparent;
@@ -26,7 +26,7 @@ body {
 .wrapper{
   display: flex;
   flex-direction: column;
-background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
   width: 99%;
   height: 97%;
   position: relative;
@@ -81,12 +81,13 @@ h1 {
   padding: 0 5px;
   content: '★';
   /* Created with https://www.css-gradient.com */
-  background: #F7E499;
+  /* background: #F7E499;
   background: -webkit-linear-gradient(right, #F7E499, #F7CA05);
   background: -moz-linear-gradient(right, #F7E499, #F7CA05);
   background: linear-gradient(to left, #F7E499, #F7CA05);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
+  color:rgb(206, 213, 219);
 }
 
 hr{
@@ -123,6 +124,9 @@ hr{
   transition: all 0.3s;
 }
 
+.input-class-elem{
+  display: none;
+}
 
 .bn39 {
   background-image: linear-gradient(247deg, #FFE53B 0%, #fd3838 74%);

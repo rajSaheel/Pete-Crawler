@@ -1,18 +1,41 @@
 import Rating from './Rating.js'
 
 // Fetching Nodes
-const crawlBtn = document.getElementById("crawl-btn")
-const inputClassId = document.getElementById("input-class-id")
-const starsFigureCollect = document.getElementById("star-collection-id")
 const ratingLabel = document.getElementsByClassName("rating-label")
-const inputClassElem = `<div class="input-class-elem"><input name="link-input" id="link-input-id" type="text" placeholder="Enter the link"/><a class="bn39"><span class="bn39span">Go</span></a></div>`
+const starsFigureCollect = document.getElementById("star-collection-id")
+const crawlBtn = document.getElementById("crawl-btn")
+const inputClassElem = document.getElementsByClassName('input-class-elem')
+const inputClassId = document.getElementById("input-class-id")
+const inputLinkBtn = document.getElementById("link-input-btn")
+
 let url
+let ratingObj
+let points
 
 // Providing input bar
 const getInputElem = () => {
-    inputClassId.innerHTML = inputClassElem
-    document.getElementById("link-input-id").value = url
+    crawlBtn.style.display = "none"
+    inputClassElem[0].style.display = "flex"
 }
+
+//Button to get input bar
+crawlBtn.addEventListener('click', getInputElem)
+
+// getting rating of input link
+const crawlInputLink = () => {
+
+    inputClassElem[0].style.display = "none"
+    crawlBtn.style.display = "flex"
+
+    url = document.getElementById("link-input-id").value
+    ratingObj = new Rating(url)
+
+    // getting points from rating object
+    points = ratingObj.getPoints()
+    displayRating(points)
+}
+
+inputLinkBtn.addEventListener('click',crawlInputLink)
 
 //Grabing Star Figures in a list
 const starArr = []
@@ -21,31 +44,35 @@ for (let index = 1; index < starsFigureCollect.childNodes.length; index += 2) {
 }
 
 //Display Stars
-const displayRating = (point) => {
-    if (point) {
-        const pointFloor = Math.floor(point)
-        const rem = Math.floor((point - pointFloor) * 20)
+const displayRating = (points) => {
+    if (points) {
+        const pointsFloor = Math.floor(points)
+        const rem = (points - pointsFloor) * 100
         ratingLabel[0].textContent = "Peté gives"
         ratingLabel[1].textContent = "to this site"
         let i = 0
-        for (i; i < pointFloor; i++) {
+        for (i; i < pointsFloor; i++) {
             starArr[i].style.display = "flex"
+            starArr[i].style.color = `#FFD700`
         }
         starArr[i].style.display = "flex"
-        starArr[i].style.clipPath = `polygon(0 0, 50% 0, 50% 100%, 0% 100%)`
+        console.log(rem);
     }
 }
 
-// displayRating(4.5)
+// fetching current url
+chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    url = tabs[0].url
+    //initialising rating object
+    ratingObj = new Rating(url)
 
-//Button to get input bar
-crawlBtn.addEventListener('click', getInputElem)
+// getting points from rating object
+    points = ratingObj.getPoints()
 
-// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-//     url = tabs[0].url
-// })
+    //displaying points
+    displayRating(points)
+})
 
-const ratingObj = new Rating("https://business.codechef.com/?itm_medium=navmenu&itm_campaign=business")
-    // ratingObj.getSourceContent()
 
-displayRating(undefined)
+
+
