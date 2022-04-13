@@ -1,4 +1,4 @@
-import Rating from './Rating.js'
+import Rating from './rating-scripts/Rating.js'
 
 // Fetching Nodes
 const ratingLabel = document.getElementsByClassName("rating-label")

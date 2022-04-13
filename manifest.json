@@ -5,7 +5,7 @@
   "description": "A chrome extension to rate the architect of websites",
   "action":{
     "default_popup":"index.html",
-    "default_icon":"icon.png"
+    "default_icon":"./assets/icon.png"
   },
   "author": "Saheel Raj",
   "permissions": [
