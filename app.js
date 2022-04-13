@@ -7,6 +7,8 @@ const crawlBtn = document.getElementById("crawl-btn")
 const inputClassElem = document.getElementsByClassName('input-class-elem')
 const inputClassId = document.getElementById("input-class-id")
 const inputLinkBtn = document.getElementById("link-input-btn")
+const successAudio = document.getElementById('success')
+const failureAudio = document.getElementById('failure')
 
 let url
 let ratingObj
@@ -59,7 +61,10 @@ const displayRating = (points) => {
                 starArr[i].style.display = "flex"
             }
         }
+        successAudio.play()
+        return
     }
+    failureAudio.play()
 }
 
 // // fetching current url
