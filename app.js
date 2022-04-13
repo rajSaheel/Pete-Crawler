@@ -82,6 +82,6 @@ const displayRating = (points) => {
     points = ratingObj.getPoints()
 
     //displaying points
-    displayRating(5)
+    displayRating(points)
 
 
