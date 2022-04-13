@@ -51,18 +51,30 @@ const displayRating = (points) => {
         ratingLabel[0].textContent = "Peté gives"
         ratingLabel[1].textContent = "to this site"
         let i = 0
-        for (i; i < pointsFloor; i++) {
+        for (i; i < 5; i++) {
+            if(i<pointsFloor){
             starArr[i].style.display = "flex"
             starArr[i].style.color = `#FFD700`
+            }else{
+                starArr[i].style.display = "flex"
+            }
         }
-        starArr[i].style.display = "flex"
-        console.log(rem);
     }
 }
 
-// fetching current url
-chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    url = tabs[0].url
+// // fetching current url
+// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+//     url = tabs[0].url
+//     //initialising rating object
+//     ratingObj = new Rating(url)
+
+// // getting points from rating object
+//     points = ratingObj.getPoints()
+
+//     //displaying points
+//     displayRating(4)
+// })
+
     //initialising rating object
     ratingObj = new Rating(url)
 
@@ -70,9 +82,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     points = ratingObj.getPoints()
 
     //displaying points
-    displayRating(points)
-})
-
-
+    displayRating(5)
 
 
