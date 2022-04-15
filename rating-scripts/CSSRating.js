@@ -2,7 +2,7 @@ export default class CSSRating {
     
     //properties
     #cssCode
-    #points = Math.random()*2
+    #points = Math.random()*1 + 1
     
     //methods
 

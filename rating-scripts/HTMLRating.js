@@ -3,7 +3,7 @@ export default class HTMLRating {
     //properties
 
     #htmlCode
-    #points = Math.random() * 2
+    #points = Math.random() * 1 + 1
 
     //methods
 
