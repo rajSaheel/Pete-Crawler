@@ -50,6 +50,7 @@ for (let index = 1; index < starsFigureCollect.childNodes.length; index += 2) {
 //
 const getPoints = async (obj) => {
     points = await obj.getPoints()
+    alert(points)
     displayRating(points)
 }
 
@@ -69,29 +70,27 @@ const displayRating = (points) => {
                 starArr[i].style.display = "flex"
             }
         }
-        successAudio.play()
+        // successAudio.play()
         return
     } else {
         ratingLabel[0].textContent = "No website Found"
-        failureAudio.play()
+        // failureAudio.play()
     }
 }
 
-// // fetching current url
-// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-//     url = tabs[0].url
+// fetching current url
+chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    url = tabs[0].url
 
-//     //initialising rating object
-//     ratingObj = new Rating(url)
+    //initialising rating object
+    ratingObj = new Rating(url)
 
-//     // getting points from rating object
-//     getPoints(ratingObj)
-// })
+    // getting points from rating object
+    getPoints(ratingObj)
+})
 
-//initialising rating object
-ratingObj = new Rating(
-    `https://www.c-sharpcorner.com/article/check-memory-usage-in-windows-10/`
-)
+// //initialising rating object
+// ratingObj = new Rating(`https://angel.co/jobs`)
 
-// getting points from rating object
-getPoints(ratingObj)
+// // getting points from rating object
+// getPoints(ratingObj)

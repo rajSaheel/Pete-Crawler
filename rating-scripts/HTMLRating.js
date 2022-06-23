@@ -11,7 +11,7 @@ export default class HTMLRating {
 
     //calculating points
     calculate = () => {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async (resolve) => {
             const result = await fetch(this.#url)
                 .then((data) => data.json())
                 .then((json) => json.messages)
@@ -22,7 +22,7 @@ export default class HTMLRating {
                     if (obj.type === "error") error++
                     else if (obj.type === "info") info++
                 }
-                this.points = 4 - (error / 50 + info / 100)
+                this.points = 2 - (error / 50 + info / 100)
                 resolve(this.points)
             }
         })

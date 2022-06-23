@@ -16,14 +16,16 @@ export default class Rating {
 
     //returning points
     getPoints = () => {
-        return new Promise(async (resolve, reject) => {
-            if (this.#url.protocol === "https:") {
-                this.points = await this.#htmlObj.calculate()
-                this.CSSpoints = await this.#cssObj.calculate()
-                resolve(this.points + 1)
+        return new Promise(async (resolve) => {
+            if (new URL(this.#url).protocol === "https:") {
+                this.htmlPoints = await this.#htmlObj.calculate()
+                this.cssPoints = await this.#cssObj.calculate()
+                resolve(this.htmlPoints + this.cssPoints)
+            } else {
+                this.htmlPoints = await this.#htmlObj.calculate()
+                this.cssPoints = await this.#cssObj.calculate()
+                resolve(this.htmlPoints + this.cssPoints)
             }
-            this.points = await this.#htmlObj.calculate()
-            resolve(this.points)
         })
     }
 }
