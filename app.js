@@ -1,14 +1,14 @@
-import Rating from './rating-scripts/Rating.js'
+import Rating from "./rating-scripts/Rating.js"
 
 // Fetching Nodes
 const ratingLabel = document.getElementsByClassName("rating-label")
 const starsFigureCollect = document.getElementById("star-collection-id")
 const crawlBtn = document.getElementById("crawl-btn")
-const inputClassElem = document.getElementsByClassName('input-class-elem')
+const inputClassElem = document.getElementsByClassName("input-class-elem")
 const inputClassId = document.getElementById("input-class-id")
 const inputLinkBtn = document.getElementById("link-input-btn")
-const successAudio = document.getElementById('success')
-const failureAudio = document.getElementById('failure')
+const successAudio = document.getElementById("success")
+const failureAudio = document.getElementById("failure")
 
 let url
 let ratingObj
@@ -20,24 +20,26 @@ const getInputElem = () => {
     inputClassElem[0].style.display = "flex"
 }
 
-//Button to get input bar
-crawlBtn.addEventListener('click', getInputElem)
+// Button to get input bar
+crawlBtn.addEventListener("click", getInputElem)
 
 // getting rating of input link
 const crawlInputLink = () => {
-
     inputClassElem[0].style.display = "none"
     crawlBtn.style.display = "flex"
 
     url = document.getElementById("link-input-id").value
-    ratingObj = new Rating(url)
 
-    // getting points from rating object
-    points = ratingObj.getPoints()
-    displayRating(points)
+    if (url) {
+        ratingObj = new Rating(url)
+
+        // getting points from rating object
+        points = ratingObj.getPoints()
+        displayRating(points)
+    }
 }
 
-inputLinkBtn.addEventListener('click',crawlInputLink)
+inputLinkBtn.addEventListener("click", crawlInputLink)
 
 //Grabing Star Figures in a list
 const starArr = []
@@ -54,20 +56,20 @@ const displayRating = (points) => {
         ratingLabel[1].textContent = "to this site"
         let i = 0
         for (i; i < 5; i++) {
-            if(i<pointsFloor){
-            starArr[i].style.display = "flex"
-            starArr[i].style.color = `#FFD700`
-            }else{
+            if (i < pointsFloor) {
+                starArr[i].style.display = "flex"
+                starArr[i].style.color = `#FFD700`
+            } else {
                 starArr[i].style.display = "flex"
             }
         }
-        successAudio.play()
+        // successAudio.play()
         return
     }
-    failureAudio.play()
+    // failureAudio.play()
 }
 
-// // fetching current url
+// fetching current url
 // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 //     url = tabs[0].url
 //     //initialising rating object
@@ -77,16 +79,15 @@ const displayRating = (points) => {
 //     points = ratingObj.getPoints()
 
 //     //displaying points
-//     displayRating(4)
+//     displayRating(points)
 // })
 
-    //initialising rating object
-    ratingObj = new Rating(url)
+ratingObj = new Rating(`https://www.w3schools.com/jsref/jsref_search.asp`)(
+    // getting points from rating object
+    async () => {
+        points = await ratingObj.getPoints()
+    }
+)()
 
-// getting points from rating object
-    points = ratingObj.getPoints()
-
-    //displaying points
-    displayRating(points)
-
-
+//displaying points
+displayRating(points)

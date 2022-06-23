@@ -1,8 +1,41 @@
 import HTMLRating from "./HTMLRating.js"
 import CSSRating from "./CSSRating.js"
 import ScriptRating from "./ScriptRating.js"
+import log from console
 
 export default class Rating {
+    //properties
+    #htmlObj
+    #cssObj
+    #url
+    points
+
+    //methods
+    constructor(url) {
+        this.#htmlobj = new HTMLRating(url)
+        this.#cssObj = new CSSRating(url)
+    }
+
+    //returning points
+    getPoints = () => {
+        return new Promise(async (resolve, reject) => {
+            if (this.#url.protocol === "https:") {
+                this.points = 1 + this.#htmlObj.points 
+                resolve(this.points)
+            }
+            this.points = this.#cssObj
+            resolve(this.points)
+        })
+    }
+
+    //logging
+    #logProp = (prop) => {
+        log(prop)
+    }
+}
+
+/*
+<---initial attemp--->
 
     //properties
     #url 
@@ -14,16 +47,6 @@ export default class Rating {
     #scriptTags
     #styleTags
     #points
-
-    //methods
-    constructor(url) {
-        this.#url = url
-        this.#getSourceContent(this.#url)
-        this.#htmlObj = new HTMLRating(this.#htmlTag)
-        this.#cssObj = new CSSRating(this.#styleTags)
-        this.#jsObj = new ScriptRating(this.#scriptTags)
-        
-    }
 
     //fetching source code
     #getSourceContent = (url) => {
@@ -61,16 +84,4 @@ export default class Rating {
         return tagArr
     }
 
-    //returning points
-    getPoints = () => {
-        this.#points = this.#htmlObj.getPoints() + this.#cssObj.getPoints() + this.#jsObj.getPoints()
-        
-        return this.#points
-    }
-
-    //logging 
-    #logProp = (prop) => {
-        console.log(prop);
-    }
-
-}
+*/
