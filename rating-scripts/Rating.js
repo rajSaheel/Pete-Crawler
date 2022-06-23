@@ -3,9 +3,8 @@ import CSSRating from "./CSSRating.js"
 import ScriptRating from "./ScriptRating.js"
 
 export default class Rating {
-
     //properties
-    #url 
+    #url
     #htmlObj
     #cssObj
     #jsObj
@@ -22,33 +21,46 @@ export default class Rating {
         this.#htmlObj = new HTMLRating(this.#htmlTag)
         this.#cssObj = new CSSRating(this.#styleTags)
         this.#jsObj = new ScriptRating(this.#scriptTags)
-        
     }
 
     //fetching source code
     #getSourceContent = (url) => {
         fetch(url)
-            .then(response => response.text())
-            .then(data => {
+            .then((response) => response.text())
+            .then((data) => {
                 this.#sourceContent = data
                 this.#htmlTag = this.#sourceContent
                 this.#htmlTag = this.#htmlTag.replace(/(\r\n|\n|\r)/gm, "")
-                this.#scriptTags = this.#getTagContent(this.#htmlTag, '<script', '</script>')
-                this.#styleTags = this.#getTagContent(this.#htmlTag, `<style`, `</style>`)
+                this.#scriptTags = this.#getTagContent(
+                    this.#htmlTag,
+                    "<script",
+                    "</script>"
+                )
+                this.#styleTags = this.#getTagContent(
+                    this.#htmlTag,
+                    `<style`,
+                    `</style>`
+                )
             })
-            .catch(()=>{
-                this.#sourceContent=""
+            .catch(() => {
+                this.#sourceContent = ""
                 this.#htmlTag = this.#sourceContent
                 this.#htmlTag = this.#htmlTag.replace(/(\r\n|\n|\r)/gm, "")
-                this.#scriptTags = this.#getTagContent(this.#htmlTag, '<script', '</script>')
-                this.#styleTags = this.#getTagContent(this.#htmlTag, `<style`, `</style>`)
+                this.#scriptTags = this.#getTagContent(
+                    this.#htmlTag,
+                    "<script",
+                    "</script>"
+                )
+                this.#styleTags = this.#getTagContent(
+                    this.#htmlTag,
+                    `<style`,
+                    `</style>`
+                )
             })
-                
     }
 
     //differentiating html, style, script tags
     #getTagContent = (sourceContent, tagS, tagE) => {
-
         let tagArr = []
         while (sourceContent.includes(tagS)) {
             let startPos = sourceContent.indexOf(tagS)
@@ -63,14 +75,26 @@ export default class Rating {
 
     //returning points
     getPoints = () => {
-        this.#points = this.#htmlObj.getPoints() + this.#cssObj.getPoints() + this.#jsObj.getPoints()
-        
+        this.#points =
+            this.#htmlObj.getPoints() +
+            this.#cssObj.getPoints() +
+            this.#jsObj.getPoints()
+
         return this.#points
     }
 
-    //logging 
+    //logging
     #logProp = (prop) => {
-        console.log(prop);
+        console.log(prop)
+        return new Promise(async (resolve, reject) => {
+            if (this.#url.protocol === "https:") {
+                this.points = await this.#htmlObj.calculate()
+                this.CSSpoints = await this.#cssObj.calculate()
+                console.log(this.CSSpoints)
+                resolve(this.points + 1)
+            }
+            this.points = await this.#htmlObj.calculate()
+            resolve(this.points)
+        })
     }
-
 }

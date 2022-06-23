@@ -1,9 +1,8 @@
 export default class CSSRating {
-    
     //properties
     #cssCode
-    #points = Math.random()*1 + 1
-    
+    #points = Math.random() * 1 + 1
+
     //methods
 
     constructor(cssCode) {
@@ -12,11 +11,12 @@ export default class CSSRating {
 
     //calculating points
 
-    
-
-    //returning points
-    getPoints = () => {
-        return this.#points
+    calculate = () => {
+        return new Promise(async (resolve, reject) => {
+            await fetch(this.#url)
+                .then((response) => console.log(response.text()))
+                .catch((err) => reject(err))
+            resolve()
+        })
     }
-
 }
