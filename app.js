@@ -12,7 +12,7 @@ const failureAudio = document.getElementById("failure")
 
 let url
 let ratingObj
-let points
+let points = 0
 
 // Providing input bar
 const getInputElem = () => {
@@ -47,9 +47,15 @@ for (let index = 1; index < starsFigureCollect.childNodes.length; index += 2) {
     starArr.push(starsFigureCollect.childNodes[index])
 }
 
+//
+const getPoints = async (obj) => {
+    points = await obj.getPoints()
+    displayRating(points)
+}
+
 //Display Stars
 const displayRating = (points) => {
-    if (points) {
+    if (points != undefined) {
         const pointsFloor = Math.floor(points)
         const rem = (points - pointsFloor) * 100
         ratingLabel[0].textContent = "Peté gives"
@@ -63,31 +69,29 @@ const displayRating = (points) => {
                 starArr[i].style.display = "flex"
             }
         }
-        // successAudio.play()
+        successAudio.play()
         return
+    } else {
+        ratingLabel[0].textContent = "No website Found"
+        failureAudio.play()
     }
-    // failureAudio.play()
 }
 
-// fetching current url
+// // fetching current url
 // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 //     url = tabs[0].url
+
 //     //initialising rating object
 //     ratingObj = new Rating(url)
 
-// // getting points from rating object
-//     points = ratingObj.getPoints()
-
-//     //displaying points
-//     displayRating(points)
+//     // getting points from rating object
+//     getPoints(ratingObj)
 // })
 
-ratingObj = new Rating(`https://www.w3schools.com/jsref/jsref_search.asp`)(
-    // getting points from rating object
-    async () => {
-        points = await ratingObj.getPoints()
-    }
-)()
+//initialising rating object
+ratingObj = new Rating(
+    `https://www.c-sharpcorner.com/article/check-memory-usage-in-windows-10/`
+)
 
-//displaying points
-displayRating(points)
+// getting points from rating object
+getPoints(ratingObj)
