@@ -10,9 +10,15 @@ const inputLinkBtn = document.getElementById("link-input-btn")
 const successAudio = document.getElementById("success")
 const failureAudio = document.getElementById("failure")
 
+//Grabing Star Figures in a list
+const starArr = []
+for (let index = 1; index < starsFigureCollect.childNodes.length; index += 2) {
+    starArr.push(starsFigureCollect.childNodes[index])
+}
+
 let url
 let ratingObj
-let points = 0
+let points
 
 // Providing input bar
 const getInputElem = () => {
@@ -29,29 +35,29 @@ const crawlInputLink = () => {
     crawlBtn.style.display = "flex"
 
     url = document.getElementById("link-input-id").value
-
+    document.getElementById("link-input-id").value = ""
     if (url) {
+        starsFigureCollect.style.display = "none"
+        ratingLabel[0].textContent = "Loading...please wait"
         ratingObj = new Rating(url)
-
+        ratingLabel[1].textContent = ""
         // getting points from rating object
-        points = ratingObj.getPoints()
-        displayRating(points)
+        getPoints(ratingObj)
+    } else {
+        displayRating(undefined)
     }
 }
 
 inputLinkBtn.addEventListener("click", crawlInputLink)
 
-//Grabing Star Figures in a list
-const starArr = []
-for (let index = 1; index < starsFigureCollect.childNodes.length; index += 2) {
-    starArr.push(starsFigureCollect.childNodes[index])
-}
-
 //
 const getPoints = async (obj) => {
     points = await obj.getPoints()
-    alert(points)
-    displayRating(points)
+    console.log(points)
+    if (points) displayRating(points)
+    else {
+        ratingLabel[0].textContent = "Something went wrong"
+    }
 }
 
 //Display Stars
@@ -70,30 +76,36 @@ const displayRating = (points) => {
                 starArr[i].style.display = "flex"
             }
         }
+        starsFigureCollect.style.display = "flex"
         successAudio.play()
         return
     } else {
         ratingLabel[0].textContent = "No website Found"
+        ratingLabel[1].textContent = ""
+        starsFigureCollect.style.display = "none"
         failureAudio.play()
+        return
     }
 }
 
 // fetching current url
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     url = tabs[0].url
+    if (["http:", "https:"].includes(new URL(url).protocol)) {
+        //initialising rating object
+        ratingObj = new Rating(url)
 
-    //initialising rating object
-    ratingObj = new Rating(url)
-
-    // getting points from rating object
-    getPoints(ratingObj)
+        // getting points from rating object
+        getPoints(ratingObj)
+    } else {
+        displayRating(undefined)
+    }
 })
 
 // debugging
-/*
-//initialising rating object
-ratingObj = new Rating(`https://angel.co/jobs`)
 
-// getting points from rating object
-getPoints(ratingObj)
-*/
+// //initialising rating object
+// ratingObj = new Rating(`https://angel.co/jobs`)
+
+// // getting points from rating object
+// getPoints(ratingObj)

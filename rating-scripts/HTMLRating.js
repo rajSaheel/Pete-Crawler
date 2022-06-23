@@ -11,19 +11,23 @@ export default class HTMLRating {
 
     //calculating points
     calculate = () => {
-        return new Promise(async (resolve) => {
-            const result = await fetch(this.#url)
+        return new Promise(async (resolve, reject) => {
+            const response = await fetch(this.#url)
                 .then((data) => data.json())
                 .then((json) => json.messages)
-            if (result) {
+                .catch(() => undefined)
+            if (response) {
                 let error = 0
                 let info = 0
-                for (let obj of result) {
+                for (let obj of response) {
                     if (obj.type === "error") error++
                     else if (obj.type === "info") info++
                 }
-                this.points = 2 - (error / 50 + info / 100)
+                this.points = 2 - (error / 100 + info / 200)
+                // alert(this.points, "HTML")
                 resolve(this.points)
+            } else {
+                reject("Something Went Wrong")
             }
         })
     }

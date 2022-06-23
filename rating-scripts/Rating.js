@@ -20,7 +20,7 @@ export default class Rating {
             if (new URL(this.#url).protocol === "https:") {
                 this.htmlPoints = await this.#htmlObj.calculate()
                 this.cssPoints = await this.#cssObj.calculate()
-                resolve(this.htmlPoints + this.cssPoints)
+                resolve(this.htmlPoints + this.cssPoints + 1)
             } else {
                 this.htmlPoints = await this.#htmlObj.calculate()
                 this.cssPoints = await this.#cssObj.calculate()
