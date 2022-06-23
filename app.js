@@ -70,11 +70,11 @@ const displayRating = (points) => {
                 starArr[i].style.display = "flex"
             }
         }
-        // successAudio.play()
+        successAudio.play()
         return
     } else {
         ratingLabel[0].textContent = "No website Found"
-        // failureAudio.play()
+        failureAudio.play()
     }
 }
 
@@ -89,8 +89,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     getPoints(ratingObj)
 })
 
-// //initialising rating object
-// ratingObj = new Rating(`https://angel.co/jobs`)
+// debugging
+/*
+//initialising rating object
+ratingObj = new Rating(`https://angel.co/jobs`)
 
-// // getting points from rating object
-// getPoints(ratingObj)
+// getting points from rating object
+getPoints(ratingObj)
+*/
