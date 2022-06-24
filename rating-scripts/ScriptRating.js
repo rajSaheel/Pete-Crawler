@@ -1,9 +1,8 @@
 export default class SciptRating {
-    
     //properties
     #scriptCode
-    #points = Math.random()*0.5 + 0.5
-    
+
+    #points
     //methods
 
     constructor(scriptCode) {
@@ -11,11 +10,4 @@ export default class SciptRating {
     }
 
     //calculating points
-
-    
-
-    //returning points
-    getPoints = () => {
-        return this.#points
-    }
 }

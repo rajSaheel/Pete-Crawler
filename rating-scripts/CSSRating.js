@@ -1,22 +1,33 @@
 export default class CSSRating {
-    
     //properties
-    #cssCode
-    #points = Math.random()*1 + 1
-    
-    //methods
+    #url
+    #URI = `https://jigsaw.w3.org/css-validator/validator?uri=`
+    #param = `&output=html`
 
-    constructor(cssCode) {
-        this.#cssCode = cssCode
+    //methods
+    constructor(url) {
+        this.#url = `${this.#URI}${url}${this.#param}`
     }
 
     //calculating points
-
-    
-
-    //returning points
-    getPoints = () => {
-        return this.#points
+    calculate = () => {
+        return new Promise(async (resolve, reject) => {
+            const response = await fetch(this.#url)
+                .then((data) => data.text())
+                .then((text) => text)
+                .catch(() => reject("Something went wrong"))
+            // console.log(response)
+            const parser = new DOMParser()
+            const htmlDoc = parser.parseFromString(response, "text/html")
+            const errorStr =
+                htmlDoc.querySelector('a[href="#errors"]').textContent
+            const error = parseInt(errorStr.match(/\d+/)[0])
+            const infoStr = htmlDoc.querySelector(
+                'a[href="#warnings"]'
+            ).textContent
+            const info = parseInt(infoStr.match(/\d+/)[0])
+            this.points = 2 - (error / 1000 + info / 2000)
+            resolve(this.points)
+        })
     }
-
 }
