@@ -12,22 +12,23 @@ export default class CSSRating {
     //calculating points
     calculate = () => {
         return new Promise(async (resolve, reject) => {
-            const response = await fetch(this.#url)
+            await fetch(this.#url)
                 .then((data) => data.text())
-                .then((text) => text)
+                .then((text) => {
+                    let parser = new DOMParser()
+                    let htmlDoc = parser.parseFromString(text, "text/html")
+                    let errorStr =
+                        htmlDoc.querySelector('a[href="#errors"]').textContent
+                    let error = parseInt(errorStr.match(/\d+/)[0])
+                    let infoStr = htmlDoc.querySelector(
+                        'a[href="#warnings"]'
+                    ).textContent
+                    let info = parseInt(infoStr.match(/\d+/)[0])
+                    this.points = 2 - (error / 1000 + info / 2000)
+                    resolve(this.points)
+                })
                 .catch(() => reject("Something went wrong"))
             // console.log(response)
-            const parser = new DOMParser()
-            const htmlDoc = parser.parseFromString(response, "text/html")
-            const errorStr =
-                htmlDoc.querySelector('a[href="#errors"]').textContent
-            const error = parseInt(errorStr.match(/\d+/)[0])
-            const infoStr = htmlDoc.querySelector(
-                'a[href="#warnings"]'
-            ).textContent
-            const info = parseInt(infoStr.match(/\d+/)[0])
-            this.points = 2 - (error / 1000 + info / 2000)
-            resolve(this.points)
         })
     }
 }
