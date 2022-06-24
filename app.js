@@ -104,7 +104,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
 // debugging
 
-// //initialising rating object
+//initialising rating object
 // ratingObj = new Rating(`https://angel.co/jobs`)
 
 // // getting points from rating object
