@@ -1,15 +1,8 @@
 export default class CSSRating {
     //properties
-<<<<<<< HEAD
     #url
     #URI = `https://jigsaw.w3.org/css-validator/validator?uri=`
     #param = `&output=html`
-=======
-    #cssCode
-    #points = Math.random() * 1 + 1
-
-    //methods
->>>>>>> master
 
     //methods
     constructor(url) {
@@ -17,7 +10,6 @@ export default class CSSRating {
     }
 
     //calculating points
-<<<<<<< HEAD
     calculate = () => {
         return new Promise(async (resolve, reject) => {
             await fetch(this.#url)
@@ -37,15 +29,6 @@ export default class CSSRating {
                 })
                 .catch(() => reject("Something went wrong"))
             // console.log(response)
-=======
-
-    calculate = () => {
-        return new Promise(async (resolve, reject) => {
-            await fetch(this.#url)
-                .then((response) => console.log(response.text()))
-                .catch((err) => reject(err))
-            resolve()
->>>>>>> master
         })
     }
 }
