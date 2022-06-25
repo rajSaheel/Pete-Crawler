@@ -3,7 +3,6 @@ import CSSRating from "./CSSRating.js"
 
 export default class Rating {
     //properties
-    #url
     #htmlObj
     #cssObj
     #url

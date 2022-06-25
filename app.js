@@ -91,23 +91,23 @@ const displayRating = (points) => {
 }
 
 // fetching current url
-chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    url = tabs[0].url
-    if (["http:", "https:"].includes(new URL(url).protocol)) {
-        //initialising rating object
-        ratingObj = new Rating(url)
+// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+//     url = tabs[0].url
+//     if (["http:", "https:"].includes(new URL(url).protocol)) {
+//         //initialising rating object
+//         ratingObj = new Rating(url)
 
-        // getting points from rating object
-        getPoints(ratingObj)
-    } else {
-        displayRating(undefined)
-    }
-})
+//         // getting points from rating object
+//         getPoints(ratingObj)
+//     } else {
+//         displayRating(undefined)
+//     }
+// })
 
 // debugging
 
 //initialising rating object
-// ratingObj = new Rating(`https://angel.co/jobs`)
+ratingObj = new Rating(`https://angel.co/jobs`)
 
-// // getting points from rating object
-// getPoints(ratingObj)
+// getting points from rating object
+getPoints(ratingObj)
