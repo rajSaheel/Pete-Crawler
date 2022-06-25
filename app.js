@@ -35,8 +35,11 @@ const crawlInputLink = () => {
     crawlBtn.style.display = "flex"
     url = document.getElementById("link-input-id").value
     document.getElementById("link-input-id").value = ""
-    if (url) {
-        // starsFigureCollect.style.display = "none"
+    if (
+        url.match(
+            /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+        )
+    ) {
         for (let i = 0; i < 5; i++) {
             starArr[i].style.color = "rgb(206, 213, 219)"
             starArr[i].style.display = "none"
@@ -44,6 +47,7 @@ const crawlInputLink = () => {
         ratingLabel[0].textContent = "Loading...please wait"
         ratingObj = new Rating(url)
         ratingLabel[1].textContent = ""
+
         // getting points from rating object
         getPoints(ratingObj)
     } else {
@@ -55,10 +59,15 @@ inputLinkBtn.addEventListener("click", crawlInputLink)
 
 //
 const getPoints = async (obj) => {
-    points = await obj.getPoints()
-    console.log(points)
-    if (points) displayRating(points)
-    else {
+    try {
+        points = await obj.getPoints()
+        if (Number.isFinite(points)) displayRating(points)
+        else {
+            failureAudio.play()
+            ratingLabel[0].textContent = "Something went wrong"
+        }
+    } catch {
+        failureAudio.play()
         ratingLabel[0].textContent = "Something went wrong"
     }
 }
@@ -110,7 +119,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 // debugging
 
 //initialising rating object
-// ratingObj = new Rating(`https://angel.co/jobs`)
+// ratingObj = new Rating(`https://www.linkedin.com/feed/`)
 
 // // getting points from rating object
 // getPoints(ratingObj)
