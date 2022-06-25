@@ -33,11 +33,14 @@ crawlBtn.addEventListener("click", getInputElem)
 const crawlInputLink = () => {
     inputClassElem[0].style.display = "none"
     crawlBtn.style.display = "flex"
-
     url = document.getElementById("link-input-id").value
     document.getElementById("link-input-id").value = ""
     if (url) {
-        starsFigureCollect.style.display = "none"
+        // starsFigureCollect.style.display = "none"
+        for (let i = 0; i < 5; i++) {
+            starArr[i].style.color = "rgb(206, 213, 219)"
+            starArr[i].style.display = "none"
+        }
         ratingLabel[0].textContent = "Loading...please wait"
         ratingObj = new Rating(url)
         ratingLabel[1].textContent = ""
@@ -76,13 +79,15 @@ const displayRating = (points) => {
                 starArr[i].style.display = "flex"
             }
         }
-        starsFigureCollect.style.display = "flex"
         successAudio.play()
         return
     } else {
         ratingLabel[0].textContent = "No website Found"
         ratingLabel[1].textContent = ""
-        starsFigureCollect.style.display = "none"
+        for (let i = 0; i < 5; i++) {
+            starArr[i].style.color = "rgb(206, 213, 219)"
+            starArr[i].style.display = "none"
+        }
         failureAudio.play()
         return
     }
