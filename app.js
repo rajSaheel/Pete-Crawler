@@ -36,7 +36,7 @@ const crawlInputLink = () => {
 
     url = document.getElementById("link-input-id").value
     document.getElementById("link-input-id").value = ""
-    if (url) {
+    if (["http:", "https:"].includes(new URL(url).protocol)) {
         starsFigureCollect.style.display = "none"
         ratingLabel[0].textContent = "Loading...please wait"
         ratingObj = new Rating(url)
@@ -75,6 +75,8 @@ const displayRating = (points) => {
             } else {
                 starArr[i].style.display = "flex"
             }
+            successAudio.play()
+            return
         }
         starsFigureCollect.style.display = "flex"
         successAudio.play()
