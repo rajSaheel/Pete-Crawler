@@ -1,24 +1,34 @@
 export default class HTMLRating {
-
     //properties
-
-    #htmlCode
-    #points = Math.random() * 1 + 1
-
+    #url
+    #URI = `https://validator.nu/?doc=`
+    #param = `&out=json`
     //methods
 
-    constructor(htmlCode) {
-        this.#htmlCode = htmlCode
+    constructor(url) {
+        this.#url = `${this.#URI}${url}${this.#param}`
     }
 
     //calculating points
-
-
-
-    //returning points
-    getPoints = () => {
-        return this.#points
-        console.log(this.#points);
+    calculate = () => {
+        return new Promise(async (resolve, reject) => {
+            const response = await fetch(this.#url)
+                .then((data) => data.json())
+                .then((json) => json.messages)
+                .catch(() => undefined)
+            if (response) {
+                let error = 0
+                let info = 0
+                for (let obj of response) {
+                    if (obj.type === "error") error++
+                    else if (obj.type === "info") info++
+                }
+                this.points = 2 - (error / 100 + info / 200)
+                // alert(this.points, "HTML")
+                resolve(this.points)
+            } else {
+                reject("Something Went Wrong")
+            }
+        })
     }
-
 }
