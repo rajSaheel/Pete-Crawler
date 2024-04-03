@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Peté Crawlér</title>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+	<!-- Wrapper -->
+	<section class="wrapper">
+		<!-- Grading-Div -->
+		<div class="grade-class" id="grade-id">
+			<h1 class="rating-label upper-label">Loading...please wait</h1>
+			<!-- Stars -->
+			<div class="star-collection" id="star-collection-id">
+				<span class="rating-star fa fa-star fa-4x" id="star-1"></span>
+				<span class="rating-star fa fa-star fa-4x" id="star-2"></span>
+				<span class="rating-star fa fa-star fa-4x" id="star-3"></span>
+				<span class="rating-star fa fa-star fa-4x" id="star-4"></span>
+				<span class="rating-star fa fa-star fa-4x" id="star-5"></span>
+			</div>
+			<h1 class="rating-label lower-label"></h1>
+		</div>
+
+		<!-- Detailed-report-Div -->
+		<div id="detailed-wrap">
+			<span class="fa fa-angle-down fa-2x" id="show-btn"></span>
+			<div id="scores">
+				<div id="performance-id" class="score-class">
+					<svg class="progress" width="100" height="100">
+						<circle class="progress-circle" cx="50" cy="50" stroke="blue" r="30" fill="transparent"
+							stroke-width="10" />
+						<text class="score-value" fill="white" x="50" y="50" alignment-baseline="middle"
+							text-anchor="middle"></text>
+					</svg>
+					<span class="score-label" id="performance-label">Performance</span>
+				</div>
+				<div id="seo-id" class="score-class">
+					<svg class="progress" width="100" height="100">
+						<circle class="progress-circle" cx="50" cy="50" stroke="blue" r="30" fill="transparent"
+							stroke-width="10" />
+						<text class="score-value" fill="white" x="50" y="50" alignment-baseline="middle"
+							text-anchor="middle"></text>
+					</svg>
+					<span class="score-label" id="seo-label">SEO</span>
+				</div>
+				<div id="accessibility-id" class="score-class">
+					<svg class="progress" width="100" height="100">
+						<circle class="progress-circle" cx="50" cy="50" stroke="blue" r="30" fill="transparent"
+							stroke-width="10" />
+						<text class="score-value" fill="white" x="50" y="50" alignment-baseline="middle"
+							text-anchor="middle"></text>
+					</svg>
+					<span class="score-label" id="accessibility-label">Security</span>
+				</div>
+				<div id="best-practices-id" class="score-class">
+					<svg class="progress" width="100" height="100">
+						<circle class="progress-circle" cx="50" cy="50" stroke="blue" r="30" fill="transparent"
+							stroke-width="10" />
+						<text class="score-value" fill="white" x="50" y="50" alignment-baseline="middle"
+							text-anchor="middle"></text>
+					</svg>
+					<span class="score-label" id="best-practices-label">Best-practices</span>
+				</div>
+				<div id="security-id" class="score-class">
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Line-Break -->
+		<hr style="
+          height: 2px;
+          border-width: 0;
+          color: #fff;
+          background-color: #fff;
+        " />
+		<!-- Input-Div -->
+		<div class="input-class" id="input-class-id">
+			<a class="bn39" id="crawl-btn"><span class="bn39span">Crawl a Link</span></a>
+			<div class="input-class-elem"><input name="link-input" id="link-input-id" type="text"
+					placeholder="Enter the link" /><a class="bn39"><span class="bn39span"
+						id="link-input-btn">Go</span></a></div>
+		</div>
+	</section>
+	<script type="module" src="app.js"></script>
+	<audio src="./assets/success.mp3" id="success"></audio>
+	<audio src="./assets/failure.mp3" id="failure"></audio>
+</body>
+
+</html>

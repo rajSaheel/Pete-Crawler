@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "version": "2.0.2",
+  "name": "Peté Crawlér",
+  "description": "A chrome extension to rate the websites",
+  "action":{
+    "default_popup":"index.html",
+    "default_icon":"./assets/icon.png"
+  },
+  "author": "Saheel Raj",
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*/*","http://*/*", "https://*/*"
+  ]
+}
